@@ -438,24 +438,32 @@ Otros a solicitud.
                     <div class="contact-heading text-center">
 						<h2>CONTÁCTANOS</h2>
 					</div>
-					<div class="col-md-5 contact-info text-left">
+					<div class="col-md-6 contact-info text-left">
 						<h3>Información del Contacto</h3>
 						<div class="info-detail">
 							<ul><li><i class="fa fa-calendar"></i><span>Lunes a Viernes:</span> 9:30 AM to 6:30 PM</li></ul>
-							<ul><li><i class="fa fa-map-marker"></i><span>Dirección:</span> Jr. Pariahuanca 1037 Urb. El Naranjal Los Olivos, Lima- Perú</li></ul>
+							<ul><li><i class="fa fa-map-marker"></i><span>Dirección:</span> Jr. Pariahuanca 1037 Urb. El Naranjal Los Olivos, Lima- Perú</li></ul><!-- 
 							<ul><li><i class="fa fa-phone"></i><span>RPC/ WhatsApp:</span> (032) 987-1235</li></ul>
-							<ul><li><i class="fa fa-fax"></i><span>Fax:</span> 984378101/ 989506544/ 941 392 649 </li></ul>
-							<ul><li><i class="fa fa-envelope"></i><span>Email:</span> info@doctor.com</li></ul>
+							<ul><li><i class="fa fa-fax"></i><span>Fax:</span> 984378101/ 989506544/ 941 392 649 </li></ul> -->
+							<ul><li><i class="fa fa-envelope"></i><span>Email:</span> comercial@bcgconsultora.com</li></ul>
+							<ul>
+							<li><i class="fa fa-users"></i> Consultores:</li>
+                            <ul>
+                            	<li><i class="fa fa-user"></i>Consultor 1:&nbsp;&nbsp;Psic. Erika Aguilar  &nbsp; <i class="fa fa-phone"></i>987247431</li>
+                            	<li><i class="fa fa-user"></i>Consultor 2:&nbsp;&nbsp;Psic. María Tello  &nbsp;&nbsp;&nbsp; <i class="fa fa-phone"></i>941392649</li>
+                            </ul>
+
+							</ul>
 						</div>
 					</div>
-					<div class="col-md-6 col-md-offset-1 contact-form">
+					<div class="col-md-5 col-md-offset-1 contact-form">
 						<h3>Envíenos su consulta</h3>
                         <div class="status alert alert-success" style="display: none"></div>
 						<form class="form" name="contact-form" method="post" action="sendemail.php" role="form">
-							<input class="name" type="text" placeholder="Nombres" id="name" name="name">
-							<input class="email" type="email" placeholder="Email" id="email" name="email">
-                            <input class="name" type="text" placeholder="Asunto" id="subject" name="subject">
-							<textarea class="message" name="message" id="message" cols="30" rows="10" placeholder="Consulta"></textarea>
+							<input class="name" type="text" placeholder="Nombres" id="name" name="name" required>
+							<input class="email" type="email" placeholder="Email" id="email" name="email" required>
+                            <input class="name" type="text" placeholder="Asunto" id="subject" name="subject" required>
+							<textarea class="message" name="message" id="message" cols="30" rows="10" placeholder="Consulta" required=""></textarea>
 							<input class="submit-btn" id="Send" type="submit" value="Enviar">
 						</form>
 					</div>
