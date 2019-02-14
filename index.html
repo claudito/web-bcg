@@ -18,6 +18,29 @@
       <script src="js/respond.min.js"></script>
     <![endif]-->
 
+
+  
+
+
+
+<!-- Convertir a Mayúsculas -->
+<script>
+function Mayusculas(field) 
+{
+field.value         = field.value.toUpperCase();
+}
+</script>
+<style>
+table{font-size: 13px;}
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+</style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+
 </head>
 <body>
 	
@@ -458,13 +481,12 @@ Otros a solicitud.
 					</div>
 					<div class="col-md-5 col-md-offset-1 contact-form">
 						<h3>Envíenos su consulta</h3>
-                        <div class="status alert alert-success" style="display: none"></div>
-						<form class="form" name="contact-form" method="post" action="sendemail.php" role="form">
-							<input class="name" type="text" placeholder="Nombres" id="name" name="name" required>
-							<input class="email" type="email" placeholder="Email" id="email" name="email" required>
-                            <input class="name" type="text" placeholder="Asunto" id="subject" name="subject" required>
-							<textarea class="message" name="message" id="message" cols="30" rows="10" placeholder="Consulta" required=""></textarea>
-							<input class="submit-btn" id="Send" type="submit" value="Enviar">
+						<form  id="agregar"  class="form" name="contact-form role="form">
+							<input class="nombres" type="text" placeholder="Nombres"  name="nombres" required onchange="Mayusculas(this)" autofocus>
+							<input  type="email" placeholder="Email"  name="email" required>
+                            <input  type="text" placeholder="Asunto"  name="subject" required  onchange="Mayusculas(this)">
+							<textarea  name="message" cols="30" rows="10" placeholder="Consulta" required  onchange="Mayusculas(this)"></textarea>
+							<input class="submit-btn" type="submit" value="Enviar">
 						</form>
 					</div>
 				</div>
@@ -491,10 +513,70 @@ Otros a solicitud.
 	<!-- script tags
 	============================================================= -->
 	<script src="js/jquery-2.1.1.js"></script>
-	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBgiSlLrN2oU4tRnGgEqcUdWJ3kPQBXZdI"></script>
 	<script src="js/gmaps.js"></script>
 	<script src="js/smoothscroll.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js"></script>
+<script>
+	
+$('#agregar').on('submit',function(e){
+
+parametros = $(this).serialize();
+
+nombres    = $('.nombres').val();
+
+$.ajax({
+
+url:"sendemail.php",
+type:"POST",
+data:parametros,
+beforeSend:function(){
+
+swal({
+ 
+  title:"Cargando",
+  text: "Espere un momento no cierre la ventana",
+  imageUrl: 'img/loader2.gif',
+  showConfirmButton:false
+
+});
+
+},
+success:function(){
+
+$('#agregar')[0].reset();
+$('.nombres').focus();
+
+swal({
+ 
+  title:"Gracias "+nombres,
+  text: "Tu mensaje ha sido enviado correctamente.",
+  type: 'success',
+  timer: 5000,
+  showConfirmButton:false
+
+});
+
+
+
+
+}
+
+
+
+});
+
+
+
+e.preventDefault();
+});
+
+
+
+
+</script>
+
 </body>
 </html>

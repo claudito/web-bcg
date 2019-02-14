@@ -1,0 +1,21 @@
+
+#Sessiones
+php_value max_execution_time 300
+
+#set max upload file size
+php_value upload_max_filesize 25M
+php_value post_max_size 25M
+php_value max_execution_time 300
+php_value max_input_time 300
+
+Options -Indexes
+<IfModule mod_rewrite.c>
+# Activar RewriteEngine
+RewriteEngine on
+RewriteBase /web-bcg/
+#RewriteBase /
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+ 
+RewriteRule ^(.*)$ $1.php
+</IfModule>

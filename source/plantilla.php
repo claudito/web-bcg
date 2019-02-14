@@ -1,7 +1,7 @@
-<?php
+<?php 
 
-include'vendor/autoload.php';
-include'modelo/Conexion.php';
+include'../vendor/autoload.php';
+include'../modelo/Conexion.php';
 
 $conexion = new Conexion();
 $conexion = $conexion->get_conexion();
@@ -12,17 +12,60 @@ CONFIG MAIL
 define("USER_MAIL", "envio.mail.sistemas@gmail.com");
 define("USER_PASS","mochilanegra");
 
-$nombres  = trim(addslashes($_REQUEST['nombres']));
-$email    = trim(addslashes($_REQUEST['email']));
-$asunto   = trim(addslashes($_REQUEST['subject']));
-$message  = trim(addslashes($_REQUEST['message']));
+$opcion   = $_REQUEST['op'];
+
+switch ($opcion) {
+	case 1:
+
+$query  = "SELECT  * FROM plantilla_correo";
+$statement = $conexion->prepare($query);
+$statement->execute();
+$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+$json   = ['data'=>$result];
+
+echo json_encode($json);
 
 
-//Import PHPMailer classes into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
+
+		break;
+	case 2:
+
+$id = $_REQUEST['id'];
+
+$query  = "SELECT  * FROM plantilla_correo WHERE id=:id";
+$statement = $conexion->prepare($query);
+$statement->bindParam(':id',$id);
+$statement->execute();
+$result    = $statement->fetch(PDO::FETCH_ASSOC);
+
+echo json_encode($result);
+
+		break;
+
+
+	case 3:
+
+	$id     = $_REQUEST['id'];
+
+	$cuerpo = trim($_REQUEST['cuerpo']);
+
+	$query  = "UPDATE  plantilla_correo SET cuerpo=:cuerpo WHERE id=:id";
+	$statement = $conexion->prepare($query);
+	$statement->bindParam(':id',$id);
+	$statement->bindParam(':cuerpo',$cuerpo);
+	$statement->execute();
+	echo "ok";
+
+	break;
+
+	case 4:
+
+$id      =  $_REQUEST['id'];
+$correo  =  trim($_REQUEST['email']);
 
 //Create a new PHPMailer instance
-$mail = new PHPMailer;
+$mail = new PHPMailer\PHPMailer\PHPMailer;
 
 //Tell PHPMailer to use SMTP
 $mail->isSMTP();
@@ -64,28 +107,26 @@ $mail->setFrom(USER_MAIL, 'BCG CONSULTING');
 //$mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
-$mail->addAddress($email, $nombres);
+$mail->addAddress($correo, 'BCG PLANTILLA');
 
 //Copia Oculta
 //$mail->addBCC('comercial@bcgconsultora.com','BCG');
 
 //Set the subject line
-$mail->Subject = 'BCG CONSULTING - CONTACTO';
+$mail->Subject = 'BCG PLANTILLA';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
 
 //Crear Plantilla;
 
-$query  = "SELECT  * FROM plantilla_correo WHERE id=2";
+$query  = "SELECT  * FROM plantilla_correo WHERE id=:id";
 $statement = $conexion->prepare($query);
+$statement->bindParam(':id',$id);
 $statement->execute();
 $result    = $statement->fetch(PDO::FETCH_ASSOC);
 
 $html      = $result['cuerpo'];
-$html      = str_replace('#cliente#',$nombres, $html);
-$html      = str_replace('#asunto#',$asunto, $html);
-$html      = str_replace('#consulta#',$message, $html);
 $mail->msgHTML($html);
 
 //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
@@ -103,5 +144,21 @@ if (!$mail->send()) {
     echo "Message sent!";
 
 }
+   
 
-?>
+
+
+
+
+	break;
+	
+	default:
+	echo "opción no disponible";
+		break;
+}
+
+
+
+
+
+ ?>
