@@ -70,7 +70,7 @@ $mail->addAddress($email, $nombres);
 //$mail->addBCC('comercial@bcgconsultora.com','BCG');
 
 //Set the subject line
-$mail->Subject = 'BCG CONSULTING - CONTACTO';
+$mail->Subject = 'Consultora BCG SAC - "Especialistas en Psicología Ocupacional"';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
@@ -86,12 +86,14 @@ $html      = $result['cuerpo'];
 $html      = str_replace('#cliente#',$nombres, $html);
 $html      = str_replace('#asunto#',$asunto, $html);
 $html      = str_replace('#consulta#',$message, $html);
+$html      = str_replace('#nombres#',$nombres, $html);
+$html      = str_replace('#correo#',$email, $html);
 $mail->msgHTML($html);
 
 //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
 
 //Replace the plain text body with one created manually
-$mail->AltBody = 'This is a plain-text message body';
+//$mail->AltBody = 'This is a plain-text message body';
 
 //Attach an image file
 //$mail->addAttachment('images/phpmailer_mini.png');

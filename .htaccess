@@ -16,7 +16,6 @@ RewriteBase /web-bcg/
 #RewriteBase /
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
-
  
 RewriteRule ^(.*)$ $1.php
 </IfModule>
